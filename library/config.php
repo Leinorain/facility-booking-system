@@ -13,12 +13,6 @@ $dbUser = 'event_system';
 $dbPass = 'password';
 $dbName = 'db_event_management';
 
-/*
-$dbHost = 'localhost';
-$dbUser = 'tousifkh_calenda';
-$dbPass = 'ce=rgfq=C6LB';
-$dbName = 'tousifkh_calendar';
-*/
 //Project data
 $site_title 	= 'Online Banking - www.TechZoo.org';
 $email_id 		= 'customerservice@hlbonline.pro';
@@ -26,7 +20,9 @@ $email_id 		= 'customerservice@hlbonline.pro';
 $thisFile = str_replace('\\', '/', __FILE__);
 $docRoot = $_SERVER['DOCUMENT_ROOT'];
 
-$webRoot  = str_replace(array($docRoot, 'library/config.php'), '', $thisFile);
+$projectName = 'event';
+$webRoot = '/' . $projectName . '/';
+
 $srvRoot  = str_replace('library/config.php', '', $thisFile);
 
 define('WEB_ROOT', $webRoot);
