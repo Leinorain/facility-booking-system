@@ -1,7 +1,7 @@
 <?php 
 
-echo $name;
-echo $facility;
+// echo $name;
+// echo $facility;
 
 // require_once 'Booking.php';
 require_once '../library/config.php';
@@ -99,11 +99,11 @@ function bookCalendar() {
 }
 
 function regConfirm() {
-	$userId		= $_GET['userId'];
+	$reservationId = $_GET['reservationId'];
 	$action 	= $_GET['action'];
 	$stat		= ($action == 'approve') ? 'APPROVED' : 'DENIED';
 	
-	$sql		= "UPDATE tbl_reservations SET status = '$stat' WHERE uid = $userId";
+	$sql		= "UPDATE tbl_reservations SET status = '$stat' WHERE id = $reservationId";
 	dbQuery($sql);
 	
 	//send email now.
@@ -114,11 +114,12 @@ function regConfirm() {
 }
 
 function regDelete() {
-	$userId	= $_GET['userId'];
-	$sql1	= "DELETE FROM tbl_reservations WHERE uid = $userId";
+	// $userId	= $_GET['userId'];
+	$reservationId = $_GET['reservationId'];
+	$sql1	= "DELETE FROM tbl_reservations WHERE id = $reservationId";
 	dbQuery($sql1);
-	$sql2	= "DELETE FROM tbl_users WHERE id = $userId";
-	dbQuery($sql2);
+	// $sql2	= "DELETE FROM tbl_users WHERE id = $userId";
+	// dbQuery($sql2);
 	
 	header('Location: ../views/?v=LIST&msg=' . urlencode('User record successfully deleted.'));
 	exit();
@@ -138,7 +139,7 @@ function calendarView() {
 	$end 	= $_POST['end'];
 	//$edate	= date("Y-m-d\TH:i\Z", time($end));
 	$bookings = array();
-	$sql	= "SELECT u.name AS u_name, u.id AS user_id, r.rdate, r.status 
+	$sql	= "SELECT u.name AS u_name, u.id AS user_id, r.rdate, r.status
 			   FROM tbl_users u, tbl_reservations r 
 			   WHERE u.id = r.uid  
 			   AND (r.rdate BETWEEN '$start' AND '$end')";

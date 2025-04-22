@@ -75,7 +75,7 @@ function getBookingRecords(){
 	// $sql 	= "SELECT u.id AS uid, u.name, u.phone, u.email,
 	// 		   r.ucount, r.facility, r.rdate, r.status, r.comments   
 			   $sql = "SELECT u.id AS uid, u.name, u.phone, u.email,
-				r.ucount, f.facility AS facility_name, r.rdate, r.status, r.comments  
+				r.ucount, f.facility AS facility_name, r.rdate, r.status, r.comments, r.id
 		
 				FROM tbl_users u
 			   JOIN tbl_reservations r ON u.id = r.uid
@@ -95,7 +95,8 @@ function getBookingRecords(){
 							"facility" => $facility_name,
 							"res_date" => $rdate,
 							"status" => $status,
-							"comments" => $comments);	
+							"comments" => $comments,
+							"reservationId" => $id);
 	}//while
 	return $records;
 }

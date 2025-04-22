@@ -24,9 +24,10 @@ if($type == 'admin') {
           <th>Booking Date</th>
           <th style="width: 140px">Number of People</th>
           <th style="width: 100px">Status</th>
+          <th style="display: none">Reservation ID</th>
           <?php if($utype == 'on') { ?>
-		  <th >Action</th>
-		  <?php } ?>
+		        <th >Action</th>
+		      <?php } ?>
         </tr>
         <?php
 	  $idx = 1;
@@ -39,7 +40,11 @@ if($type == 'admin') {
 		?>
         <tr>
           <td><?php echo $idx++; ?></td>
-          <td><a href="<?php echo WEB_ROOT; ?>views/?v=USER&ID=<?php echo $user_id; ?>"><?php echo strtoupper($user_name); ?></a></td>
+          <td>
+            <a href="<?php echo WEB_ROOT; ?>views/?v=USER&ID=<?php echo $user_id; ?>">
+              <?php echo strtoupper($user_name); ?>
+            </a>
+          </td>
           <td><?php echo $user_email; ?></td>
           <td><?php echo $user_phone; ?></td>
           <td><?php echo $facility; ?></td>
@@ -47,15 +52,25 @@ if($type == 'admin') {
           <td><?php echo $count; ?></td>
           <td><span class="label label-<?php echo $stat; ?>"><?php echo $status; ?></span></td>
           <?php if($utype == 'on') { ?>
-		  <td><?php if($status == "PENDING") {?>
-            <a href="javascript:approve('<?php echo $user_id ?>');">Approve</a>&nbsp;/
-			&nbsp;<a href="javascript:decline('<?php echo $user_id ?>');">Denied</a>&nbsp;/
-			&nbsp;<a href="javascript:deleteUser('<?php echo $user_id ?>');">Delete</a>
-            <?php } else { ?>
-			<a href="javascript:deleteUser('<?php echo $user_id ?>');">Delete</a>
-			<?php }//else ?>
+            
+          <td style="display: none">
+            <?php echo $reservationId; ?>
           </td>
-		  <?php } ?>
+
+		      <td><?php if($status == "PENDING") {?>
+            <a href="javascript:approve('<?php echo $reservationId ?>');">Approve</a>&nbsp;/
+            &nbsp;<a href="javascript:decline('<?php echo $reservationId ?>');">Denied</a>&nbsp;/
+            &nbsp;<a href="javascript:deleteUser('<?php echo $reservationId ?>');">Delete</a>
+          <?php }
+            else
+            {
+          ?>
+            <a href="javascript:deleteUser('<?php echo $reservationId ?>');">Delete</a>
+          <?php
+          }//else ?>
+          </td>
+          
+		      <?php } ?>
         </tr>
         <?php } ?>
       </table>
@@ -77,19 +92,19 @@ if($type == 'admin') {
 </div>
 
 <script language="javascript">
-function approve(userId) {
-	if(confirm('Are you sure you wants to Approve it ?')) {
-		window.location.href = '<?php echo WEB_ROOT; ?>api/process.php?cmd=regConfirm&action=approve&userId='+userId;
+function approve(reservationId) {
+	if(confirm('Are you sure you wants to Approve it ?'+ reservationId)) {
+		window.location.href = '<?php echo WEB_ROOT; ?>api/process.php?cmd=regConfirm&action=approve&reservationId='+ reservationId;
 	}
 }
-function decline(userId) {
+function decline(reservationId) {
 	if(confirm('Are you sure you wants to Decline the Booking ?')) {
-		window.location.href = '<?php echo WEB_ROOT; ?>api/process.php?cmd=regConfirm&action=denide&userId='+userId;
+		window.location.href = '<?php echo WEB_ROOT; ?>api/process.php?cmd=regConfirm&action=denide&reservationId='+ reservationId;
 	}
 }
-function deleteUser(userId) {
-	if(confirm('Deleting user will also delete it\'s booking from calendar.\n\nAre you sure you want to priceed ?')) {
-		window.location.href = '<?php echo WEB_ROOT; ?>api/process.php?cmd=delete&userId='+userId;
+function deleteUser(reservationId) {
+	if(confirm('Deleting user will also delete it\'s booking from calendar.\n\nAre you sure you want to proceed ?' + reservationId)) {
+		window.location.href = '<?php echo WEB_ROOT; ?>api/process.php?cmd=delete&reservationId='+reservationId;
 	}
 }
 
