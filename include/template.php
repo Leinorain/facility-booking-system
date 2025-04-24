@@ -47,8 +47,13 @@ $self = WEB_ROOT . 'admin/index.php';
 	  
 	  <div class="row">
 	  	<?php
-			require_once $content;	 
-		?>
+          if ($content == 'eventlist.php') {
+            require_once '../library/database.php'; // if not already included
+            require_once '../library/functions.php'; // might already be included
+            $records = getBookingRecords();
+        }
+			  require_once $content;	 
+		  ?>
       </div>
       <!-- /.row -->
     </section>

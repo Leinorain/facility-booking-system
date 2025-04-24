@@ -22,9 +22,6 @@ switch($cmd) {
 
 function createUser() {
 	$name 		= $_POST['name'];
-	// $address 	= $_POST['address'];
-	$phone 		= $_POST['phone'];
-	$email 		= $_POST['email'];
 	$type		= $_POST['type'];
 	
 	//TODO first check if that date has a holiday
@@ -36,8 +33,8 @@ function createUser() {
 		exit();
 	}
 	$pwd = random_string();
-	$sql = "INSERT INTO tbl_users (name, pwd, phone, email, type, status, bdate)
-			VALUES ('$name', '$pwd', '$phone', '$email', '$type', 'active', NOW())";	
+	$sql = "INSERT INTO tbl_users (name, pwd, type, status, bdate)
+			VALUES ('$name', '$pwd', '$type', 'active', NOW())";	
 	dbQuery($sql);
 	
 	//send email on registration confirmation

@@ -71,34 +71,38 @@ function doLogout()
 function getBookingRecords(){
 	$per_page = 10;
 	$page = (isset($_GET['page']) && $_GET['page'] != '') ? $_GET['page'] : 1;
-	$start 	= ($page-1)*$per_page;
-	// $sql 	= "SELECT u.id AS uid, u.name, u.phone, u.email,
-	// 		   r.ucount, r.facility, r.rdate, r.status, r.comments   
-			   $sql = "SELECT u.id AS uid, u.name, u.phone, u.email,
-				r.ucount, f.facility AS facility_name, r.rdate, r.status, r.comments, r.id
-		
-				FROM tbl_users u
-			   JOIN tbl_reservations r ON u.id = r.uid
-			   JOIN facilities f ON r.facility = f.id
-			   ORDER BY r.id DESC 
-			   LIMIT $start, $per_page";
+	$start 	= ($page-1)*$per_page; 
+	$sql = "SELECT u.id AS uid, u.name, r.event_name AS reservationEventName,
+			r.ucount, f.facility AS facility_name, r.rdate, r.status, r.comments, r.id
+
+			FROM tbl_users u
+			JOIN tbl_reservations r ON u.id = r.uid
+			JOIN facilities f ON r.facility = f.id
+			ORDER BY r.id DESC 
+			LIMIT $start, $per_page";
 	//echo $sql;
 	$result = dbQuery($sql);
 	$records = array();
 	while($row = dbFetchAssoc($result)) {
 		extract($row);
 		$records[] = array("user_id" => $uid,
-							"user_name" => $name,
-							"user_phone" => $phone,
-							"user_email" => $email,
+							"reservationEventName" => $reservationEventName,
 							"count" => $ucount,
 							"facility" => $facility_name,
 							"res_date" => $rdate,
 							"status" => $status,
 							"comments" => $comments,
-							"reservationId" => $id);
+							"reservationId" => $id
+						);
 	}//while
 	return $records;
+	
+		// $records = $records;
+		// if (is_array($records))
+		// 	$records = implode(',', $records);
+	
+		// echo "<script>console.log('Debug Objects: " . $records . "' );</script>";
+	
 }
 
 
@@ -124,8 +128,6 @@ function getUserRecords(){
 		extract($row);
 		$records[] = array("user_id" => $id,
 			"user_name" => $name,
-			"user_phone" => $phone,
-			"user_email" => $email,
 			"type" => $type,
 			"status" => $status,
 			"bdate" => $bdate

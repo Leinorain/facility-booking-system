@@ -22,12 +22,6 @@ while($row = dbFetchAssoc($res)) {
         <dt>Username</dt>
         <dd><?php echo $name; ?></dd>
 		
-		<dt>Email</dt>
-        <dd><?php echo $email; ?></dd>
-		
-		<dt>Phone</dt>
-        <dd><?php echo $phone; ?></dd>
-		
 		<dt>Booking Status</dt>
         <dd><span class="label label-<?php echo $stat; ?>"><?php echo $status; ?></span></dd>
 		

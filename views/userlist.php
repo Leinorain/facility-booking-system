@@ -18,8 +18,6 @@ if($type == 'admin' || $type == 'teacher') {
         <tr>
           <th style="width: 10px">#</th>
           <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
           <th>User Role</th>
           <th style="width: 100px">Status</th>
           <?php if($utype == 'on') { ?>
@@ -39,8 +37,6 @@ if($type == 'admin' || $type == 'teacher') {
         <tr>
           <td><?php echo $idx++; ?></td>
           <td><a href="<?php echo WEB_ROOT; ?>views/?v=USER&ID=<?php echo $user_id; ?>"><?php echo strtoupper($user_name); ?></a></td>
-          <td><?php echo $user_email; ?></td>
-          <td><?php echo $user_phone; ?></td>
          
           <td>
 		  <i class="fa <?php echo $type == 'teacher' ? 'fa-user' : 'fa-users' ; ?>" aria-hidden="true"></i>&nbsp;&nbsp;<?php echo strtoupper($type); ?></i></td>

@@ -1,25 +1,25 @@
+
 <?php 
 $records = getBookingRecords();
+
 $utype = '';
 $type = $_SESSION['calendar_fd_user']['type'];
 if($type == 'admin') {
 	$utype = 'on';
 }
 ?>
-
 <div class="col-md-12">
   <div class="box">
     <div class="box-header with-border">
       <h3 class="box-title">Event Booking Details</h3>
     </div>
     <!-- /.box-header -->
+     
     <div class="box-body">
       <table class="table table-bordered">
         <tr>
           <th style="width: 10px">#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
+          <th>Event Name</th>
           <th>Facility</th>
           <th>Booking Date</th>
           <th style="width: 140px">Number of People</th>
@@ -30,23 +30,22 @@ if($type == 'admin') {
 		      <?php } ?>
         </tr>
         <?php
-	  $idx = 1;
-	  foreach($records as $rec) {
-	  	extract($rec);
-		$stat = '';
-		if($status == "PENDING") {$stat = 'warning';}
-		else if ($status == "APPROVED") {$stat = 'success';}
-		else if($status == "DENIED") {$stat = 'danger';}
-		?>
+          $idx = 1;
+          foreach($records as $rec) {
+            extract($rec);
+          $stat = '';
+          if($status == "PENDING") {$stat = 'warning';}
+          else if ($status == "APPROVED") {$stat = 'success';}
+          else if($status == "DENIED") {$stat = 'danger';}
+        ?>
         <tr>
           <td><?php echo $idx++; ?></td>
           <td>
-            <a href="<?php echo WEB_ROOT; ?>views/?v=USER&ID=<?php echo $user_id; ?>">
-              <?php echo strtoupper($user_name); ?>
-            </a>
+            <!-- <a href="<?//php echo WEB_ROOT; ?>views/?v=USER&ID=<?//php echo $user_id; ?>"> -->
+              <?//php echo strtoupper($reservationEventName); ?>
+            <!-- </a> -->
+              <?php echo $reservationEventName ; ?>
           </td>
-          <td><?php echo $user_email; ?></td>
-          <td><?php echo $user_phone; ?></td>
           <td><?php echo $facility; ?></td>
           <td><?php echo $res_date; ?></td>
           <td><?php echo $count; ?></td>

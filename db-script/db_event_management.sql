@@ -52,10 +52,11 @@ CREATE TABLE `tbl_holidays` (
 --
 
 CREATE TABLE `tbl_reservations` (
+  `event_name` varchar(30) NOT NULL,
   `id` int(10) NOT NULL,
   `uid` int(10) NOT NULL,
   `ucount` int(10) NOT NULL, -- attendees
-  `facility` varchar(30) NOT NULL,
+  `facility` int(10) NOT NULL,
   `rdate` varchar(100) NOT NULL,
   `status` varchar(10) NOT NULL,
   `comments` varchar(250) NOT NULL,
@@ -72,9 +73,6 @@ CREATE TABLE `tbl_users` (
   `id` int(10) NOT NULL,
   `name` varchar(100) NOT NULL,
   `pwd` varchar(200) NOT NULL,
-  -- `address` varchar(250) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `email` varchar(100) NOT NULL,
   `type` varchar(10) NOT NULL,
   `status` varchar(10) NOT NULL,
   `bdate` varchar(100) NOT NULL
@@ -88,16 +86,13 @@ CREATE TABLE `facilities` (
 -- Dumping data for table `tbl_users`
 --
 
--- INSERT INTO `tbl_users` (`id`, `name`, `pwd`, `address`, `phone`, `email`, `type`, `status`, `bdate`) VALUES
--- (15, 'admin', 'admin', 'some addresses', '11223344', 'myemail@gmail.com', 'admin', 'active', '2016-12-20 10:00:08');
-
 
 -- NO ADDRESS
-INSERT INTO `tbl_users` (`id`, `name`, `pwd`, `phone`, `email`, `type`, `status`, `bdate`) VALUES
-(15, 'admin', 'admin', '11223344', 'myemail@gmail.com', 'admin', 'active', '2016-12-20 10:00:08');
+INSERT INTO `tbl_users` (`id`, `name`, `pwd`, `type`, `status`, `bdate`) VALUES
+(15, 'admin', 'admin', 'admin', 'active', '2016-12-20 10:00:08');
 
 INSERT INTO `facilities` (`id`, `facility`) VALUES
-(1, 'GYM'), (2,'COMPUTER LAB')
+(1, 'GYM'), (2,'COMPUTER LAB');
 --
 -- Indexes for dumped tables
 --

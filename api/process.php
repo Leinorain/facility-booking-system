@@ -2,7 +2,6 @@
 
 // echo $name;
 // echo $facility;
-
 // require_once 'Booking.php';
 require_once '../library/config.php';
 require_once '../library/mail.php';
@@ -68,11 +67,12 @@ function addHoliday() {
 }
 
 function bookCalendar() {
-	$name 		= $_POST['name'];
-	$userId = (int)$_POST['name'];
+	$reservationEventName 	= $_POST['reservationEventName'];
+	// $userId = (int)$_POST['name'];
+	// $userId = 1;
+	$userId = $_SESSION['calendar_fd_user']['id'];
+	// $userId = $_SESSION['user_id']; 
 	$facility = $_POST['facility'];
-	$phone 		= $_POST['phone'];
-	$email 		= $_POST['email'];
 	$rdate		= $_POST['rdate'];
 	$rtime		= $_POST['rtime'];
 	$bkdate		= $rdate. ' '. $rtime;
@@ -86,12 +86,12 @@ function bookCalendar() {
 		exit();
 	}
 	
-	$sql = "INSERT INTO tbl_reservations (uid, ucount, facility, rdate, status, comments, bdate) 
-			VALUES ($userId, $ucount, '$facility', '$bkdate', 'PENDING', '', NOW())";
+	$sql = "INSERT INTO tbl_reservations (event_name, uid, ucount, facility, rdate, status, comments, bdate) 
+			VALUES ('$reservationEventName', $userId, $ucount, '$facility', '$bkdate', 'PENDING', '', NOW())";
 	dbQuery($sql);
 	
 	//send email on registration confirmation
-	$bodymsg = "User $name booked the date slot on $bkdate. Requesting you to please take further action on user booking.<br/>Mbr/>Tousif Khan";
+	$bodymsg = "Program $reservationEventName booked the date slot on $bkdate. Requesting you to please take further action on user booking.<br/>Mbr/>Tousif Khan";
 	$data = array('to' => 'tousifkhan510@gmail.com', 'sub' => 'Booking on $rdate.', 'msg' => $bodymsg);
 	//send_email($data);
 	header('Location: ../index.php?msg=' . urlencode('Booked successfully!'));
@@ -139,7 +139,7 @@ function calendarView() {
 	$end 	= $_POST['end'];
 	//$edate	= date("Y-m-d\TH:i\Z", time($end));
 	$bookings = array();
-	$sql	= "SELECT u.name AS u_name, u.id AS user_id, r.rdate, r.status
+	$sql	= "SELECT r.event_name AS reservationEventName, u.id AS user_id, r.rdate, r.status
 			   FROM tbl_users u, tbl_reservations r 
 			   WHERE u.id = r.uid  
 			   AND (r.rdate BETWEEN '$start' AND '$end')";
@@ -148,7 +148,7 @@ function calendarView() {
 	while($row = dbFetchAssoc($result)) {
 		extract($row);
 		$book = new Booking();
-		$book->title = $u_name;
+		$book->title = $reservationEventName;
 		$book->start = $rdate; 
 		$bgClr = '#f39c12';//pending
 		if($status == 'DENIED') {$bgClr = '#ff0000';}
@@ -184,9 +184,6 @@ function userDetails() {
 	while($hrow = dbFetchAssoc($hresult)) {	
 		extract($hrow);
 		$user['user_id'] = $id;
-		// $user['address'] = $address;
-		$user['phone_no'] = $phone;
-		$user['email'] = $email;
 	}//while
 	echo json_encode($user);
 }
