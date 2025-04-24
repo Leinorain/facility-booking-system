@@ -27,19 +27,19 @@
 <!-- FastClick -->
 <script src="<?php echo WEB_ROOT; ?>node_modules/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="<?php echo WEB_ROOT; ?>node_modules/admin-lte/dist/js/adminlte.min.js"></script>
+<script src="<?php echo WEB_ROOT; ?>public/admin-lte/dist/js/app.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="<?php echo WEB_ROOT; ?>node_modules/admin-lte/dist/js/demo.js"></script>
+<script src="<?php echo WEB_ROOT; ?>public/admin-lte/dist/js/demo.js"></script>
 <!-- fullCalendar 2.2.5 -->
 <script src="<?php echo WEB_ROOT; ?>node_modules/moment/min/moment.min.js"></script>
 <!-- <script src="<?php //echo WEB_ROOT; ?>node_modules/fullcalendar/dist/fullcalendar.min.css"></script> -->
 <script src="<?php echo WEB_ROOT; ?>public/fullcalendar/fullcalendar.min.js"></script>
 
 <!-- Theme style -->
-<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>node_modules/admin-lte/dist/css/AdminLTE.min.css">
+<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>public/admin-lte/dist/css/AdminLTE.min.css">
 <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>node_modules/admin-lte/dist/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>public/admin-lte/dist/css/skins/_all-skins.min.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
